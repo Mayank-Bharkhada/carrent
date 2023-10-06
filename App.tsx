@@ -1,15 +1,18 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
 // Import your Home and Second components
 import Home from './src/Pages/Home';
 import LetsGo from './src/Pages/LetsGo';
 import { Button, Text } from 'react-native-paper';
 import { View, useColorScheme, 
-  StatusBar, } from 'react-native';
+  StatusBar,
+  TouchableOpacity,
+  ImageBackground, } from 'react-native';
 import { Colors } from './src/constants/Colors';// Import the custom icon
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import Live from './src/Pages/Live';
+import Menu from './src/Photos/Menu.png';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -20,13 +23,9 @@ const App = () => {
   };
 
 
-  function CustomHeader() {
+  function HomeHeader() {
     return (
-      <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 15, backgroundColor: backgroundStyle.backgroundColor }}>
-         <StatusBar
-        barStyle={isLightMode ? 'light-content' : 'dark-content'}
-        backgroundColor="#FFF"
-      />
+      <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 15,paddingTop:35, backgroundColor: backgroundStyle.backgroundColor }}>
           <Button 
             icon={() =>   
               <MaterialCommunityIcons
@@ -37,7 +36,7 @@ const App = () => {
           mode="text" onPress={() => console.log('Pressed')}
           textColor='#000'
           >
-            Press me
+            Information
           </Button>
       
         <Button 
@@ -61,13 +60,37 @@ const App = () => {
         mode="text" onPress={() => console.log('Pressed')}
         textColor='#000'
         >
-          Press me
+          Notifications
         </Button>
 
       </View>
     );
+    
   }
 
+  // Define the props for the Home component including the navigation prop
+
+
+  function LiveHeaderRight() {
+    return (
+  
+        <TouchableOpacity 
+        onPress={() => console.log('Pressed')}
+        >
+            <ImageBackground
+            source={Menu}
+            resizeMode="contain"
+          
+            style={{width:25,height:25,marginRight:20}}
+            >
+
+            </ImageBackground>
+        </TouchableOpacity>
+
+    );
+  }
+
+  
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="LetsGo">
@@ -81,8 +104,20 @@ const App = () => {
           component={Home}
           options={{
             headerShown: true,
-            header: () => <CustomHeader />,
+            
+            header: () => <HomeHeader />,
             headerLeft: (() => { return false })
+          }} // Hide the header for the Notifications screen
+        />
+        <Stack.Screen
+          name="Live"
+          component={Live}
+          options={{
+            headerTitle:"",
+            headerShown: true,
+            headerTransparent: true, 
+            headerRight: () => <LiveHeaderRight />,
+            // headerLeft: (() => { return false })
           }} // Hide the header for the Notifications screen
         />
       </Stack.Navigator>

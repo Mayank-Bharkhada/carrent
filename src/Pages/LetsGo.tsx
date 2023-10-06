@@ -27,6 +27,7 @@ import { StackNavigationProp } from '@react-navigation/stack'; // Import the Sta
 type YourStackParamList = {
   LetsGo: undefined; // You can define route parameters here if needed
   Home: undefined; // You can define route parameters here if needed
+  Live: undefined; // You can define route parameters here if needed
 };
 
 // In your component, use the 'StackNavigationProp' with your param list
@@ -51,7 +52,8 @@ function LetsGo({ navigation }: LetsGoProps) {
     <SafeAreaView style={[styles.container]}>
       <StatusBar
         barStyle={isLightMode ? 'dark-content' :'light-content' }
-        backgroundColor="#2C2B34"
+        backgroundColor="transparent"
+        translucent={true}
       />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
@@ -60,6 +62,7 @@ function LetsGo({ navigation }: LetsGoProps) {
         <ImageBackground
           source={require('../Photos/BackgroundLetsGo.png')}
           style={styles.backgroundImage}
+          resizeMode="contain"
         >
         </ImageBackground>
         <View style={[styles.contentView,{backgroundColor:backgroundStyle.backgroundColor}]}>
@@ -89,10 +92,10 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    height:400,
-    width:350,
+    height:450,
+    width:400,
     marginTop:"10%",
-    marginBottom:"2%",
+    marginLeft:-60,
     resizeMode: 'cover', // You can adjust the resizeMode as needed
     justifyContent: 'center',
   },
